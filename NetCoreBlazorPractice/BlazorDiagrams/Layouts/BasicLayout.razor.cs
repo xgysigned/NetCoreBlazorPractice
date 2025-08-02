@@ -18,9 +18,16 @@ namespace BlazorDiagrams.Layouts
                 new MenuDataItem
                 {
                     Path = "/",
-                    Name = "mydiagram",
+                    Name = "流程编排入门",
                     Key = "mydiagram",
                     Icon = "smile",
+                }   ,
+                new MenuDataItem
+                {
+                    Path = "/custom",
+                    Name = "自定义节点样式",
+                    Key = "custom",
+                    Icon = "branches",
                 }
             };
         }
