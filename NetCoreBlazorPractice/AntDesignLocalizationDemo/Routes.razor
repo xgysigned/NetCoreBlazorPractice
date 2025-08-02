@@ -1,0 +1,69 @@
+﻿@using AntDesign
+@using AntDesign.Extensions.Localization
+@using System.Globalization
+@using Microsoft.AspNetCore.Components.Routing
+<Router AppAssembly="@typeof(App).Assembly" OnNavigateAsync="OnNavigateAsync">
+    <Found Context="routeData">
+        <RouteView RouteData="@routeData"  />
+        <FocusOnNavigate RouteData="@routeData" Selector="h1" />
+    </Found>
+    <NotFound>
+        <PageTitle>Not found</PageTitle>
+        <LayoutView >
+            <p role="alert">Sorry, there's nothing at this address.</p>
+        </LayoutView>
+    </NotFound>
+</Router>
+
+@inject ILocalizationService LocalizationService
+@inject NavigationManager NavigationManager // 👈 修正：注入 NavigationManager
+
+@code {
+    protected override void OnInitialized()
+    {
+        LocalizationService.LanguageChanged += OnLanguageChanged;
+    }
+
+    // ✅ 修正：方法签名必须匹配 EventHandler<CultureInfo> 委托
+    private void OnLanguageChanged(object sender, CultureInfo e)
+    {
+        InvokeAsync(StateHasChanged);
+    }
+
+    public void Dispose()
+    {
+        LocalizationService.LanguageChanged -= OnLanguageChanged;
+    }
+
+    async Task OnNavigateAsync(NavigationContext navigationContext)
+    {
+        var path = navigationContext.Path;
+        var currentCulture = LocalizationService.CurrentCulture;
+        // 修正：正确获取路径的第一段作为语言标识
+        var segment = path.Split('/').FirstOrDefault();
+
+        if (string.IsNullOrWhiteSpace(segment))
+        {
+            // ✅ 修正：使用注入的 NavigationManager 实例
+            NavigationManager.NavigateTo($"{currentCulture.Name}/Index");
+            return;
+        }
+
+        if (segment.Equals("zh-CN", StringComparison.OrdinalIgnoreCase) ||
+            segment.Equals("en-US", StringComparison.OrdinalIgnoreCase))
+        {
+            LocalizationService.SetLanguage(CultureInfo.GetCultureInfo(segment));
+        }
+        else if (currentCulture.Name.Equals("zh-CN", StringComparison.OrdinalIgnoreCase) ||
+                 currentCulture.Name.Equals("en-US", StringComparison.OrdinalIgnoreCase))
+        {
+            // ✅ 修正：使用注入的 NavigationManager 实例
+            NavigationManager.NavigateTo($"{currentCulture.Name}/{path}");
+        }
+        else
+        {
+            // ✅ 修正：使用注入的 NavigationManager 实例
+            NavigationManager.NavigateTo($"en-US/{path}");
+        }
+    }
+}

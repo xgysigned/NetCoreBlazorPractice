@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- ... (schema 部分，与 zh-CN 文件相同) ... -->
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <!-- 🇬🇧 英文键值对 -->
+  <data name="menu.account.center" xml:space="preserve">
+    <value>Account Center</value>
+  </data>
+  <data name="menu.account.settings" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="menu.account.logout" xml:space="preserve">
+    <value>Logout</value>
+  </data>
+  <data name="overview.title" xml:space="preserve">
+    <value>Welcome</value>
+  </data>
+</root>

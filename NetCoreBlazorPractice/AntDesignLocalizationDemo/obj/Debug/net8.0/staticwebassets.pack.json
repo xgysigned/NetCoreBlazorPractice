@@ -1,0 +1,57 @@
+{
+  "Files": [
+    {
+      "Id": "D:\\Code\\NetCoreBlazorPractice\\NetCoreBlazorPractice\\AntDesignLocalizationDemo\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\AntDesignLocalizationDemo.bundle.scp.css",
+      "PackagePath": "staticwebassets\\AntDesignLocalizationDemo.216h6u7x8j.bundle.scp.css"
+    },
+    {
+      "Id": "D:\\Code\\NetCoreBlazorPractice\\NetCoreBlazorPractice\\AntDesignLocalizationDemo\\wwwroot\\appsettings.json",
+      "PackagePath": "staticwebassets\\appsettings.json"
+    },
+    {
+      "Id": "D:\\Code\\NetCoreBlazorPractice\\NetCoreBlazorPractice\\AntDesignLocalizationDemo\\wwwroot\\assets\\403.svg",
+      "PackagePath": "staticwebassets\\assets\\403.svg"
+    },
+    {
+      "Id": "D:\\Code\\NetCoreBlazorPractice\\NetCoreBlazorPractice\\AntDesignLocalizationDemo\\wwwroot\\assets\\logo.svg",
+      "PackagePath": "staticwebassets\\assets\\logo.svg"
+    },
+    {
+      "Id": "D:\\Code\\NetCoreBlazorPractice\\NetCoreBlazorPractice\\AntDesignLocalizationDemo\\wwwroot\\css\\site.css",
+      "PackagePath": "staticwebassets\\css\\site.css"
+    },
+    {
+      "Id": "D:\\Code\\NetCoreBlazorPractice\\NetCoreBlazorPractice\\AntDesignLocalizationDemo\\wwwroot\\favicon.ico",
+      "PackagePath": "staticwebassets\\favicon.ico"
+    },
+    {
+      "Id": "D:\\Code\\NetCoreBlazorPractice\\NetCoreBlazorPractice\\AntDesignLocalizationDemo\\wwwroot\\index.html",
+      "PackagePath": "staticwebassets\\index.html"
+    },
+    {
+      "Id": "D:\\Code\\NetCoreBlazorPractice\\NetCoreBlazorPractice\\AntDesignLocalizationDemo\\wwwroot\\pro_icon.svg",
+      "PackagePath": "staticwebassets\\pro_icon.svg"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.AntDesignLocalizationDemo.Microsoft.AspNetCore.StaticWebAssetEndpoints.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssetEndpoints.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.AntDesignLocalizationDemo.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.build.AntDesignLocalizationDemo.props",
+      "PackagePath": "build\\AntDesignLocalizationDemo.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildMultiTargeting.AntDesignLocalizationDemo.props",
+      "PackagePath": "buildMultiTargeting\\AntDesignLocalizationDemo.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildTransitive.AntDesignLocalizationDemo.props",
+      "PackagePath": "buildTransitive\\AntDesignLocalizationDemo.props"
+    }
+  ],
+  "ElementsToRemove": []
+}

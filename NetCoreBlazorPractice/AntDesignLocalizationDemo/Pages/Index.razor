@@ -1,0 +1,75 @@
+﻿@page "/"
+@page "/{locale}/Index"
+@using AntDesign.Extensions.Localization
+@using Microsoft.Extensions.Localization
+@inject IStringLocalizer<I18n> L
+@inject ILocalizationService LocalizationService
+@inject NavigationManager NavigationManager
+@implements IDisposable
+
+<div style="padding: 24px; text-align: center;">
+    <h1>@L["welcome"]</h1>
+    <p>@L["menu.account.center"]</p>
+    <p>@L["menu.account.settings"]</p>
+    <p>@L["menu.account.logout"]</p>
+
+    <div style="margin-top: 24px;">
+        <!-- 修正：直接调用独立方法 -->
+        <Button Type="AntDesign.ButtonType.Primary" @onclick="SetLanguageToEnUs">
+            English
+        </Button>
+        <Button @onclick="SetLanguageToZhCn" style="margin-left: 8px;">
+            中文
+        </Button>
+    </div>
+
+    <div style="margin-top: 16px; color: #999;">
+        @L["CurrentCulture"]: @LocalizationService.CurrentCulture.DisplayName
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public string Locale { get; set; }
+
+    // 为每种语言创建独立的方法
+    private void SetLanguageToEnUs()
+    {
+        SetLanguage("en-US");
+    }
+
+    private void SetLanguageToZhCn()
+    {
+        SetLanguage("zh-CN");
+    }
+
+    // 将核心逻辑封装在一个私有方法中
+    private void SetLanguage(string cultureCode)
+    {
+        LocalizationService.SetLanguage(new System.Globalization.CultureInfo(cultureCode));
+        NavigationManager.NavigateTo($"/{cultureCode}/Index");
+    }
+
+    protected override void OnParametersSet()
+    {
+        if (!string.IsNullOrEmpty(Locale))
+        {
+            LocalizationService.SetLanguage(System.Globalization.CultureInfo.GetCultureInfo(Locale));
+        }
+    }
+
+    protected override void OnInitialized()
+    {
+        LocalizationService.LanguageChanged += OnLanguageChanged;
+    }
+
+    private void OnLanguageChanged(object sender, System.Globalization.CultureInfo e)
+    {
+        InvokeAsync(StateHasChanged);
+    }
+
+    public void Dispose()
+    {
+        LocalizationService.LanguageChanged -= OnLanguageChanged;
+    }
+}

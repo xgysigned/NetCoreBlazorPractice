@@ -1,0 +1,7 @@
+wwwroot\appsettings.json
+wwwroot\assets\403.svg
+wwwroot\assets\logo.svg
+wwwroot\css\site.css
+wwwroot\favicon.ico
+wwwroot\index.html
+wwwroot\pro_icon.svg
