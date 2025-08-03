@@ -11,6 +11,7 @@
     <PackageReference Include="AntDesign.Extensions.Localization" Version="1.0.0" />
     <PackageReference Include="AntDesign.ProLayout" Version="1.0.0" />
     <PackageReference Include="Microsoft.Extensions.Http" Version="8.0.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="System.Net.Http.Json" Version="8.0.0" />
 	  <PackageReference Include="Z.Blazor.Diagrams" Version="3.0.3" />
 	  <PackageReference Include="Z.Blazor.Diagrams.Algorithms" Version="3.0.3" />

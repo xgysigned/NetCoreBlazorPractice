@@ -1,0 +1,101 @@
+﻿@page "/custom"
+@using Blazor.Diagrams
+@using Blazor.Diagrams.Components
+@using Blazor.Diagrams.Components.Widgets
+@using Blazor.Diagrams.Core.Anchors
+@using Blazor.Diagrams.Core.Models
+@using Blazor.Diagrams.Core.PathGenerators
+@using Blazor.Diagrams.Core.Routers
+@using Blazor.Diagrams.Options
+@using BlazorDiagrams.Components
+@using static BlazorDiagrams.Components.EndNodeWidget
+@using static BlazorDiagrams.Components.BotAnswerWidget
+@using static BlazorDiagrams.Components.StartNodeWidget
+<h3>自定义节点样式</h3>
+<div class="diagram-container">
+    <CascadingValue Value="Diagram" IsFixed="true">
+
+        <DiagramCanvas>
+
+            <Widgets>
+                <GridWidget Size="30" Mode="GridMode.Line" BackgroundColor="white" />
+
+                <NavigatorWidget Width="200" Height="120"
+                                 Class="border border-black bg-white absolute"
+                                 Style="bottom: 15px; right: 15px;position: absolute;" />
+            </Widgets>
+        </DiagramCanvas>
+
+    </CascadingValue>
+</div>
+
+@code {
+    // 构建Blazor.Diagrams 提供的 Diagram 对象
+    private BlazorDiagram Diagram { get; set; } = null!;
+
+    /// <summary>
+    /// 组件初始化时调用的方法
+    /// 用于配置流程图选项、创建节点和连接线
+    /// </summary>
+    protected override void OnInitialized()
+    {
+        // 创建流程图的配置选项
+        var options = new BlazorDiagramOptions
+            {
+                // 配置连接线（Link）的默认行为
+                Links =
+        {
+            // 使用 NormalRouter：连接线从端口出发，走直线或折线到达目标
+            DefaultRouter = new NormalRouter(),
+
+            // 使用 SmoothPathGenerator：生成平滑曲线（贝塞尔曲线）作为连接线路径
+            // 若想用直角线，可替换为 new RightAnglePathGenerator()
+            DefaultPathGenerator = new SmoothPathGenerator()
+        },
+
+                // 允许用户通过框选或按住 Shift 点击选择多个节点或连接线
+                AllowMultiSelection = true,
+
+                // 启用画布缩放功能（鼠标滚轮缩放）
+                Zoom = { Enabled = true },
+            };
+
+        // 初始化 BlazorDiagram 实例，并传入配置选项
+        // 此对象是整个流程图的核心控制器，管理节点、连线、交互等
+        Diagram = new BlazorDiagram(options);
+
+        // 注册自定义节点渲染器
+        Diagram.RegisterComponent<BotAnswerNode, BotAnswerWidget>();            // 注册组件
+        Diagram.RegisterComponent<StartNode, StartNodeWidget>();
+        Diagram.RegisterComponent<EndNode, EndNodeWidget>();
+
+        // 创建开始节点
+        var startNode = new StartNode("Start", new Blazor.Diagrams.Core.Geometry.Point(50, 100));
+        Diagram.Nodes.Add(startNode);
+
+        // 创建 AI 节点
+        var aiNode = new BotAnswerNode("AI", new Blazor.Diagrams.Core.Geometry.Point(250, 100))
+            {
+                SystemPrompt = "你是一个 helpful assistant.",
+            };
+        Diagram.Nodes.Add(aiNode);
+
+        // 创建结束节点
+        var endNode = new EndNode("End", new Blazor.Diagrams.Core.Geometry.Point(600, 100));
+        Diagram.Nodes.Add(endNode);
+
+        // 连接它们
+        Diagram.Links.Add(new LinkModel(startNode, aiNode));
+        Diagram.Links.Add(new LinkModel(aiNode, endNode));
+    }
+}
+
+<style type="text/css">
+
+    .diagram-container {
+        width: 100%;
+        height: 600px;
+        border: 1px solid black; /* Just visual */
+    }
+
+</style>

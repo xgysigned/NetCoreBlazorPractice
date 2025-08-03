@@ -1,0 +1,91 @@
+﻿@using Blazor.Diagrams
+@using Blazor.Diagrams.Components.Renderers
+@using Blazor.Diagrams.Core.Models
+@using Microsoft.AspNetCore.Components.Authorization
+@using Newtonsoft.Json
+@inject ILogger<BotAnswerWidget> _logger
+
+<div class="custom-node @(Node.Selected ? " selected" : "")" style="display: inline-block; margin: 0 10px;">
+
+    <Card Bordered="false" Title=@($"🤖{Node.Title}") Style="width: 250px">
+        <Body >
+            <Form Model="@Node" Layout="FormLayout.Vertical" Class="steps-content">
+               
+                <FormItem Label="选择AI模型" Required>
+
+                    <Select 
+                        TItem="string"
+                          TItemValue="string"
+                            @bind-Value="Node.Model"
+                    DataSource="@BigModelList"
+                    Placeholder="请选择模型"
+                    DefaultActiveFirstOption="false"
+                    EnableSearch>
+                    </Select>
+                </FormItem>
+
+                <FormItem Label="系统提示词" Required>
+                    <TextArea class="form-control" @bind-Value="Node.SystemPrompt" placeholder="请输入系统提示词"></TextArea>
+
+                </FormItem>
+                <FormItem Label="max_tokens" Required>
+                    <Row>
+                        <Col Span="14">
+                            <Slider TValue="double" Min="2048" Max="16384" Step="1" @bind-Value="@Node.MaxToken" TooltipVisible />
+                        </Col>
+                        <Col Span="2">
+                            <AntDesign.InputNumber Min="2048" Max="16384" Step="1" Bordered Style="margin:0 8px;" @bind-Value="@Node.MaxToken" TValue="double" />
+                        </Col>
+                    </Row>
+
+                </FormItem>
+                <FormItem Label="temperature" Required>
+                    <Row>
+                        <Col Span="14">
+                            <Slider TValue="double" Min="0" Max="1" Step="0.1" @bind-Value="@Node.Temperature" TooltipVisible/>
+                        </Col>
+                        <Col Span="2">
+                            <AntDesign.InputNumber Min="0" Max="1" Step="0.1" Style="margin:0 8px;"  @bind-Value="@Node.Temperature" TValue="double" />
+                        </Col>
+                    </Row>
+                </FormItem>
+            </Form>
+
+        </Body>
+    </Card>
+</div>
+
+@code {
+
+    [Parameter]
+    public BotAnswerNode Node { get; set; }
+    protected async override Task OnInitializedAsync()
+    {
+    }
+
+    /// <summary>
+    /// 对话模型
+    /// </summary>
+    List<string> BigModelList { get; set; } = new List<string>()
+    {
+        "DeepSeek-R1","Qwen3-32B","GLM-4-32B-0414"
+    };
+   
+    public class BotAnswerNode : NodeModel
+    {
+        public BotAnswerNode(string id, Blazor.Diagrams.Core.Geometry.Point position = null) : base(id, position)
+        {
+
+
+        }
+        /// <summary>
+        /// 标题
+        /// </summary>
+        public string Title { get; set; } = "AI问答";
+
+        public string Model { get; set; }
+        public string SystemPrompt { get; set; } = "你是一个AI助手，帮助回答用户问题";
+        public double Temperature { get; set; } = 0.7;
+        public double MaxToken { get; set; } = 4000;
+    }
+}
